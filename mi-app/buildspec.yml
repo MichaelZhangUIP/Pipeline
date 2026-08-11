@@ -1,16 +1,21 @@
 version: 0.2
 
 phases:
-
   pre_build:
     commands:
-      - echo Iniciando construcción
+      - echo Iniciando proceso
+      - echo Iniciando sesion en ECR
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin TU_ID_AWS.dkr.ecr.us-east-1.amazonaws.com
 
   build:
     commands:
-      - echo Creando imagen Docker
+      - echo Construyendo imagen Docker
       - docker build -t mi-aplicacion .
 
   post_build:
     commands:
+      - echo Etiquetando imagen
+      - docker tag mi-aplicacion:latest TU_ID_AWS.dkr.ecr.us-east-1.amazonaws.com/mi-aplicacion:latest
+      - echo Subiendo imagen a ECR
+      - docker push TU_ID_AWS.dkr.ecr.us-east-1.amazonaws.com/mi-aplicacion:latest
       - echo Proceso terminado
