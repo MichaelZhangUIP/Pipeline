@@ -18,4 +18,9 @@ phases:
       - docker tag mi-aplicacion:latest public.ecr.aws/t2h9w5f8/mi-aplicacion:latest
       - echo Subiendo imagen a ECR
       - docker push public.ecr.aws/t2h9w5f8/mi-aplicacion:latest
-      - echo Imagen subida correctamente
+      - echo Creando archivo para ECS
+      - printf '[{"name":"mi-aplicacion","imageUri":"public.ecr.aws/t2h9w5f8/mi-aplicacion:latest"}]' > imagedefinitions.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
