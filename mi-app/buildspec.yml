@@ -1,1 +1,16 @@
+version: 0.2
 
+phases:
+
+  pre_build:
+    commands:
+      - echo Iniciando construcción
+
+  build:
+    commands:
+      - echo Creando imagen Docker
+      - docker build -t mi-aplicacion .
+
+  post_build:
+    commands:
+      - echo Proceso terminado
